@@ -11,8 +11,8 @@
   @extends SC.View
 */
 Sites.WeatherSnowfallView = SC.View.extend(
-/** @scope Sites.WeatherSnowfallView.prototype */ {
+/** @scope Sites.WeatherSnowfallView.prototype */
+{
 
   // TODO: Add your own code here.
-
 });

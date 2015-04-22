@@ -11,8 +11,8 @@
   @extends SC.View
 */
 Sites.GeneralServicesView = SC.View.extend(
-/** @scope Sites.GeneralServicesView.prototype */ {
+/** @scope Sites.GeneralServicesView.prototype */
+{
 
   // TODO: Add your own code here.
-
 });

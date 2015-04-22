@@ -4,19 +4,15 @@
 // ==========================================================================
 /*globals Sites */
 
-
 Sites.SITES_QUERY = SC.Query.local(Sites.SiteModel, {
 
-	isEditable: YES,
-	destroyOnRemoval: YES,
+  isEditable: YES,
+  destroyOnRemoval: YES,
 
-	conditions: "type = 'site' "
+  conditions: "type = 'site' "
 });
 
-
-
 // var siteId = '8f902265a0a1c9c19cb73041b6007354';
-
 
 // Sites.VISITS_QUERY = SC.Query.local(Sites.VisitModel, {
 // 	// siteId: '8f902265a0a1c9c19cb73041b6007354',
@@ -51,7 +47,6 @@ Sites.SITES_QUERY = SC.Query.local(Sites.SiteModel, {
 // 	}.observes('siteId')
 // });
 
-
 /** @class
 
   (Document Your Data Source Here)
@@ -65,7 +60,7 @@ Sites.SiteDataSource = SC.DataSource.extend(
   _dbpath: 'sites',
 
   getServerPath: function(resourceName) {
-    var path = '/' + this._dbpath + "//" + resourceName;  //Estará bien el "//"? Si, está ok 24-feb-2015
+    var path = '/' + this._dbpath + "//" + resourceName; //Estará bien el "//"? Si, está ok 24-feb-2015
     // console.log('ServerPath=', path);
     return path;
 
@@ -77,8 +72,6 @@ Sites.SiteDataSource = SC.DataSource.extend(
     return path;
 
   },
-
-
 
   // ..........................................................
   // QUERY SUPPORT
@@ -102,15 +95,10 @@ Sites.SiteDataSource = SC.DataSource.extend(
   //
   //   return NO; // return YES if you handled the query
   // },
-	
   fetch: function(store, query) {
-		console.log('store:', store, 'query', query);
+    console.log('store:', store, 'query', query);
     if (query) {
-      SC.Request.getUrl(this.getServerView('allData'))
-      					.json()
-      					.header('Accept', 'application/json')
-      					.notify(this, 'didFetchSites', store, query)
-      					.send();					
+      SC.Request.getUrl(this.getServerView('allData')).json().header('Accept', 'application/json').notify(this, 'didFetchSites', store, query).send();
       return YES;
     }
     return NO; // return YES if you handled the query
@@ -119,15 +107,15 @@ Sites.SiteDataSource = SC.DataSource.extend(
   didFetchSites: function(response, store, query) {
     if (SC.ok(response)) {
       var body = response.get('encodedBody');
-			// console.log("body=", body);
+      // console.log("body=", body);
       var couchResponse = SC.json.decode(body);
-			// console.log("couchReponse=", couchResponse );
+      // console.log("couchReponse=", couchResponse );
       var records = couchResponse.rows.getEach('value');
-			console.log("the records=", records);
+      console.log("the records=", records);
       store.loadRecords(Sites.SiteModel, records);
       store.dataSourceDidFetchQuery(query);
-    } 
-		else {
+    }
+    else {
       store.dataSourceDidErrorQuery(query, response);
     }
   },
@@ -147,7 +135,6 @@ Sites.SiteDataSource = SC.DataSource.extend(
   //   }
   // },
 
-
   // ..........................................................
   // RECORD SUPPORT
   // 
@@ -155,11 +142,7 @@ Sites.SiteDataSource = SC.DataSource.extend(
 
     if (SC.kindOf(store.recordTypeFor(storeKey), Sites.SiteModel)) {
       var id = store.idFor(storeKey);
-      SC.Request.getUrl(this.getServerPath(id))
-								.header('Accept', 'application/json')
-								.json()
-								.notify(this, 'didRetrieveSite', store, storeKey)
-								.send();
+      SC.Request.getUrl(this.getServerPath(id)).header('Accept', 'application/json').json().notify(this, 'didRetrieveSite', store, storeKey).send();
 
       return YES;
     }
@@ -172,25 +155,25 @@ Sites.SiteDataSource = SC.DataSource.extend(
       store.dataSourceDidComplete(storeKey, dataHash);
 
     } else {
-			store.dataSourceDidError(storeKey, response);
-		}
+      store.dataSourceDidError(storeKey, response);
+    }
   },
 
-	// ..........................................................
-	// PROCESS RESPONSE FOR CREATE, UPDATE, DELETE
-	// 
+  // ..........................................................
+  // PROCESS RESPONSE FOR CREATE, UPDATE, DELETE
+  // 
   /**
   Process response from CouchDB of create, update, delete operations.
 
   @returns id,rev for success, null for failure.
   */
   processResponse: function(response) {
-		//console.log('processResponse-response=', response);
+    //console.log('processResponse-response=', response);
     if (SC.ok(response)) {
       var body = response.get('encodedBody');
-			// console.log('processResponse-body=', body);
+      // console.log('processResponse-body=', body);
       var couchResponse = SC.json.decode(body);
-			// console.log('processResponse-couchResponse=', couchResponse.toString());
+      // console.log('processResponse-couchResponse=', couchResponse.toString());
       var ok = couchResponse.ok;
       if (ok != YES) return {
         "error": true,
@@ -221,20 +204,14 @@ Sites.SiteDataSource = SC.DataSource.extend(
     return doc._rev;
   },
 
-
-
-	// ..........................................................
-	// CREATE (POST)
-	// 
+  // ..........................................................
+  // CREATE (POST)
+  // 
   createRecord: function(store, storeKey) {
-		// console.log('>>> createRecord triggered');
+    // console.log('>>> createRecord triggered');
     if (SC.kindOf(store.recordTypeFor(storeKey), Sites.SiteModel)) {
       // SC.Request.postUrl(this.getServerPath('/')).json().header('Accept', 'application/json').notify(this, this.didCreateSite, store, storeKey).send(store.readDataHash(storeKey));
-			SC.Request.postUrl(this.getServerPath('/'))
-								.json()
-								.header('Accept', 'application/json')
-								.notify(this, this.didCreateSite, store, storeKey)
-								.send(store.readDataHash(storeKey));
+      SC.Request.postUrl(this.getServerPath('/')).json().header('Accept', 'application/json').notify(this, this.didCreateSite, store, storeKey).send(store.readDataHash(storeKey));
       return YES;
     }
 
@@ -243,64 +220,48 @@ Sites.SiteDataSource = SC.DataSource.extend(
 
   didCreateSite: function(response, store, storeKey) {
     var couchRes = this.processResponse(response);
-		// console.log('Create-couchRes=', couchRes)
+    // console.log('Create-couchRes=', couchRes)
     if (couchRes.ok) {
       // Add _id and _rev to the local document for further server interaction.
       var localDoc = store.readDataHash(storeKey);
       localDoc._id = couchRes.id;
       localDoc._rev = couchRes.rev;
 
-			// console.log('Create-arg1:storeKey=', storeKey);
-			// console.log('Create-arg2:localDoc=', localDoc);
-			// console.log('Create-arg3:couchRes.id=', couchRes.id);
-			
+      // console.log('Create-arg1:storeKey=', storeKey);
+      // console.log('Create-arg2:localDoc=', localDoc);
+      // console.log('Create-arg3:couchRes.id=', couchRes.id);
       store.dataSourceDidComplete(storeKey, localDoc, couchRes.id);
 
-			//console.log(store.find(Sites.SiteData, storeKey).toString());
-			
+      //console.log(store.find(Sites.SiteData, storeKey).toString());
     } else {
       store.dataSourceDidError(storeKey, response);
     }
   },
 
-
-
-	// ..........................................................
-	// UPDATE (PUT, PATCH)
-	// 
-	
+  // ..........................................................
+  // UPDATE (PUT, PATCH)
+  // 
   updateRecord: function(store, storeKey) {
-		// console.log('>>> UPDATE RECORD TRIGGERED <<<');
-		// console.log('Update-Record Status=', store.readStatus(storeKey));
-		// console.log("Update-BEFORE.Record-status=", store.find(Sites.SiteData, store.idFor(storeKey)).toString());
-		
+    // console.log('>>> UPDATE RECORD TRIGGERED <<<');
+    // console.log('Update-Record Status=', store.readStatus(storeKey));
+    // console.log("Update-BEFORE.Record-status=", store.find(Sites.SiteData, store.idFor(storeKey)).toString());
     //console.log('Update-store.recordTypeFor(storeKey)=', store.recordTypeFor(storeKey));
-		//console.log('Update-SC.kindOf(store.recordTypeFor(storeKey), Sites.SiteData)', SC.kindOf(store.recordTypeFor(storeKey), Sites.SiteData));
-		
-		if (SC.kindOf(store.recordTypeFor(storeKey), Sites.SiteModel)) {
+    //console.log('Update-SC.kindOf(store.recordTypeFor(storeKey), Sites.SiteData)', SC.kindOf(store.recordTypeFor(storeKey), Sites.SiteData));
+    if (SC.kindOf(store.recordTypeFor(storeKey), Sites.SiteModel)) {
       var id = store.idFor(storeKey);
-			//console.log("Update-id=", id);
-			
+      //console.log("Update-id=", id);
       var dataHash = store.readDataHash(storeKey);
-			// console.log("Update-rev=", this.getDocRev(dataHash));
-			// console.log("Update-dataHash=", dataHash);
-			
-			
-			var status = store.readStatus(storeKey);
-			// console.log('Update-Record Status=', status);
-			
+      // console.log("Update-rev=", this.getDocRev(dataHash));
+      // console.log("Update-dataHash=", dataHash);
+
+      var status = store.readStatus(storeKey);
+      // console.log('Update-Record Status=', status);
       // SC.Request.putUrl(this.getServerPath(id)).json().header('Accept', 'application/json').notify(this, this.didUpdateSite, store, storeKey).send(dataHash);
-			
-			//console.log("Update-this.getServerPath(id)", this.getServerPath(id));
-			// console.log("+++ Just BEFORE sending the request ++++ ");
-			SC.Request.putUrl(this.getServerPath(id))
-								.json()
-								.header('Accept', 'application/json')
-								.notify(this, this.didUpdateSite, store, storeKey)
-								.send(dataHash);
-								
-			// console.log("+++ Just AFTER sending the request ++++ ");
-								
+      //console.log("Update-this.getServerPath(id)", this.getServerPath(id));
+      // console.log("+++ Just BEFORE sending the request ++++ ");
+      SC.Request.putUrl(this.getServerPath(id)).json().header('Accept', 'application/json').notify(this, this.didUpdateSite, store, storeKey).send(dataHash);
+
+      // console.log("+++ Just AFTER sending the request ++++ ");
       return YES;
     }
     return NO;
@@ -308,53 +269,42 @@ Sites.SiteDataSource = SC.DataSource.extend(
 
   didUpdateSite: function(response, store, storeKey) {
     var couchRes = this.processResponse(response);
-		// console.log("Update-couchRes=", couchRes);
-		var results = response.get('body');
-		// console.log("Update-results = response.get('body')=", results);
+    // console.log("Update-couchRes=", couchRes);
+    var results = response.get('body');
+    // console.log("Update-results = response.get('body')=", results);
     if (couchRes.ok) {
       // Update the local _rev of this document.
       var localDoc = store.readDataHash(storeKey);
-			var status=store.readStatus(storeKey);
-				
-			localDoc._id = couchRes.id;  // puesto por mi
+      var status = store.readStatus(storeKey);
+
+      localDoc._id = couchRes.id; // puesto por mi
       localDoc._rev = couchRes.rev;
 
-			// console.log('Update-Record Status=', status);
-			// console.log('Update-arg1:storeKey=', storeKey);
-			// console.log('Update-arg2:localDoc=dataHash=', localDoc);
-			
-			store.dataSourceDidComplete(storeKey, localDoc);
-			// store.dataHashDidChange(storeKey);
-			// store.flush();
-			
-			// console.log('Update-Record Status AFTER store.dataSourceDidComplete=', status);
-			// console.log("Update-AFTER.Record-status==", store.find(Sites.SiteData, localDoc._id).toString());
-			
+      // console.log('Update-Record Status=', status);
+      // console.log('Update-arg1:storeKey=', storeKey);
+      // console.log('Update-arg2:localDoc=dataHash=', localDoc);
+      store.dataSourceDidComplete(storeKey, localDoc);
+      // store.dataHashDidChange(storeKey);
+      // store.flush();
+      // console.log('Update-Record Status AFTER store.dataSourceDidComplete=', status);
+      // console.log("Update-AFTER.Record-status==", store.find(Sites.SiteData, localDoc._id).toString());
     } else {
       store.dataSourceDidError(storeKey);
     }
   },
 
-
-
-	// ..........................................................
-	// DESTROY
-	// 
-
+  // ..........................................................
+  // DESTROY
+  // 
   destroyRecord: function(store, storeKey) {
-		// console.log('>>> destroyRecord triggered')
-		
+    // console.log('>>> destroyRecord triggered')
     if (SC.kindOf(store.recordTypeFor(storeKey), Sites.SiteModel)) {
       var id = store.idFor(storeKey);
       //var rev = this._docsRev[id];	
       var dataHash = store.readDataHash(storeKey);
       var rev = this.getDocRev(dataHash);
-      SC.Request.deleteUrl(this.getServerPath(id + "?rev=" + rev))
-								.json()
-								.header('Accept', 'application/json')
-								.notify(this, this.didDeleteSite, store, storeKey)
-								.send();
-								
+      SC.Request.deleteUrl(this.getServerPath(id + "?rev=" + rev)).json().header('Accept', 'application/json').notify(this, this.didDeleteSite, store, storeKey).send();
+
       return YES;
     }
 
@@ -363,10 +313,9 @@ Sites.SiteDataSource = SC.DataSource.extend(
 
   didDeleteSite: function(response, store, storeKey) {
     var couchRes = this.processResponse(response);
-		// console.log('Delete-couchRes=', couchRes);
+    // console.log('Delete-couchRes=', couchRes);
     if (couchRes.ok) {
-			// console.log('Delete-arg1:storeKey=', storeKey);
-			
+      // console.log('Delete-arg1:storeKey=', storeKey);
       store.dataSourceDidDestroy(storeKey);
     } else {
       store.dataSourceDidError(response);
@@ -374,6 +323,3 @@ Sites.SiteDataSource = SC.DataSource.extend(
   }
 
 });
-
-
-

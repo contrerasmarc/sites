@@ -11,8 +11,8 @@
   @extends SC.View
 */
 Sites.HaulingWasteDischargeView = SC.View.extend(
-/** @scope Sites.HaulingWasteDischargeView.prototype */ {
+/** @scope Sites.HaulingWasteDischargeView.prototype */
+{
 
   // TODO: Add your own code here.
-
 });

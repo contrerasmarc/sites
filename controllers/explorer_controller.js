@@ -11,14 +11,15 @@
   @extends SC.ObjectController
 */
 Sites.explorerController = SC.ObjectController.create(
-/** @scope Sites.explorerController.prototype */ {
+/** @scope Sites.explorerController.prototype */
+{
 
   nowShowing: 'Sites.GeneralView',
-	
-	sectionIsEnabled: true,	// Let's the left menus enabled
-	
-	selectSite: function(){
-		this.set('sectionIsEnabled', true);
-	}
+
+  sectionIsEnabled: true,
+  // Let's the left menus enabled
+  selectSite: function() {
+    this.set('sectionIsEnabled', true);
+  }
 
 });

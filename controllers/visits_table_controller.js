@@ -10,21 +10,19 @@
 
   @extends SC.ArrayController
 */
-Sites.visitsTableController = SC.ArrayController.create(  
+Sites.visitsTableController = SC.ArrayController.create(
 // Sites.visitsTableController = SC.ArrayController.create( SCTable.TableDelegate,
-/** @scope Sites.visitsTableController.prototype */ {
+/** @scope Sites.visitsTableController.prototype */
+{
 
   // PUBLIC METHODS
-
   contentBinding: 'Sites.sampleRows',
-	// contentBinding: 'Sites.visitsController.arrangedObjects',
-    
+  // contentBinding: 'Sites.visitsController.arrangedObjects',
   // PUBLIC METHODS
-  
   sayHi: function() {
     console.log('...hi');
   },
-  
+
   /*
     This method is called once per cell being rendered, to generate the content of the
     cell's outer div element.  Override it to add custom content.  By default it simply
@@ -42,12 +40,11 @@ Sites.visitsTableController = SC.ArrayController.create(
     //   return this._renderStars(tableView, renderContext, rowContent, rowIndex, column, columnIndex);
     // }
     // else {
-      return renderContext.push('<div class=\"text\">%@</div>'.fmt(SC.RenderContext.escapeHTML(String(rowContent ? rowContent.get(column.get('valueKey')) : null))));
+    return renderContext.push('<div class=\"text\">%@</div>'.fmt(SC.RenderContext.escapeHTML(String(rowContent ? rowContent.get(column.get('valueKey')) : null))));
     // }
   }
-  
+
   // PRIVATE METHODS
-  
   /*
     Demo for special column rendering
   */
@@ -66,7 +63,6 @@ Sites.visitsTableController = SC.ArrayController.create(
   //
   //   return renderContext.push(this._STARS_TEMPLATE.fmt.apply(this._STARS_TEMPLATE, on));
   // },
-  
   /*
     Called when a mouse-down occurs on a table row view.  'evt' is the original mouse event, so you can
     query it for the actual DOM target that was hit if desired.
@@ -88,15 +84,11 @@ Sites.visitsTableController = SC.ArrayController.create(
   //   }
   //
   // },
-  
   // PRIVATE PROPERTIES
-  
   /*
     Template string for rendering the stars column -- we'll substitute an 'on' class at render time for the '%@'
     in any star divs that should be 'lit', and an empty string for the rest.
   */
   // _STARS_TEMPLATE: '<div class=\"stars-0\"></div><div class=\"stars-1 %@\"></div><div class=\"stars-2 %@\"></div><div class=\"stars-3 %@\"></div><div class=\"stars-4 %@\"></div><div class=\"stars-5 %@\"></div>'
-
-  
 
 });

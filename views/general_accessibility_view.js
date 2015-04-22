@@ -11,8 +11,8 @@
   @extends SC.View
 */
 Sites.GeneralAccessibilityView = SC.View.extend(
-/** @scope Sites.GeneralAccessibilityView.prototype */ {
+/** @scope Sites.GeneralAccessibilityView.prototype */
+{
 
   // TODO: Add your own code here.
-
 });

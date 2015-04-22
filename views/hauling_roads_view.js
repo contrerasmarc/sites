@@ -11,8 +11,8 @@
   @extends SC.View
 */
 Sites.HaulingRoadsView = SC.View.extend(
-/** @scope Sites.HaulingRoadsView.prototype */ {
+/** @scope Sites.HaulingRoadsView.prototype */
+{
 
   // TODO: Add your own code here.
-
 });

@@ -12,23 +12,24 @@
   @version 0.1
 */
 Sites.GeneralState = SC.State.extend(
-/** @scope Sites.GeneralState.prototype */ {
+/** @scope Sites.GeneralState.prototype */
+{
 
-	enterState: function() {
+  enterState: function() {
     Sites.mainPage.get('mainPane').append();
-	},
-	
+  },
+
   exitState: function() {
 
+},
+
+  goHauling: function() {
+    Sites.explorerController.set('nowShowing', 'Sites.HaulingView');
+    this.gotoState('haulingState');
   },
-	
-	goHauling: function() {
-		Sites.explorerController.set('nowShowing', 'Sites.HaulingView');
-		this.gotoState('haulingState');
-	},
-	goWeather: function() {
-		Sites.explorerController.set('nowShowing', 'Sites.WeatherView');
-		this.gotoState('weatherState');
-	}
+  goWeather: function() {
+    Sites.explorerController.set('nowShowing', 'Sites.WeatherView');
+    this.gotoState('weatherState');
+  }
 
 });

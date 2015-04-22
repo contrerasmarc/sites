@@ -11,11 +11,11 @@
   @extends SC.ArrayController
 */
 Sites.searchSitesController = SC.ArrayController.create(
-/** @scope Sites.searchSitesController.prototype */ {
+/** @scope Sites.searchSitesController.prototype */
+{
 
-	// From GitHub: thanks to Maurits Lamers
-  
-	allSitesBinding: SC.Binding.oneWay('Sites.sitesController.arrangedObjects'),
+  // From GitHub: thanks to Maurits Lamers
+  allSitesBinding: SC.Binding.oneWay('Sites.sitesController.arrangedObjects'),
 
   searchBinding: SC.Binding.oneWay('Sites.sitesController.search'),
 
@@ -23,13 +23,14 @@ Sites.searchSitesController = SC.ArrayController.create(
     var s = this.get('search');
     var allSites = this.get('allSites');
     if (!s) {
-    	this.set('content', allSites);
+      this.set('content', allSites);
     }
     else {
       var ret = [];
       s = s.toLowerCase();
       var qfield, obj;
-      for (var i = 0, len = allSites.get('length'); i < len; i += 1) {
+      for (var i = 0,
+      len = allSites.get('length'); i < len; i += 1) {
         obj = allSites.objectAt(i);
         qfield = obj.get('name').toLowerCase();
         if (qfield.indexOf(s) > -1) ret.push(obj);

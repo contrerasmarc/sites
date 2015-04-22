@@ -12,17 +12,20 @@
   @version 0.1
 */
 Sites.VisitModel = SC.Record.extend(
-/** @scope Sites.Visits.prototype */ {
+/** @scope Sites.Visits.prototype */
+{
 
-	primaryKey: "_id",
-	type: SC.Record.attr(String, {defaultValue: 'visit'} ),
-	name: SC.Record.attr(String),
-	// date: SC.Record.attr(SC.DateTime, { format: 'dd-mm-YY'}),
-	date: SC.Record.attr(String),
-	days: SC.Record.attr(Number),
-	site: SC.Record.toOne('Sites.SiteModel', {
-		inverse: 'visits',
-		isMaster: NO
-	})
+  primaryKey: "_id",
+  type: SC.Record.attr(String, {
+    defaultValue: 'visit'
+  }),
+  name: SC.Record.attr(String),
+  // date: SC.Record.attr(SC.DateTime, { format: 'dd-mm-YY'}),
+  date: SC.Record.attr(String),
+  days: SC.Record.attr(Number),
+  site: SC.Record.toOne('Sites.SiteModel', {
+    inverse: 'visits',
+    isMaster: NO
+  })
 
 });

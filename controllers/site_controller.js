@@ -11,8 +11,9 @@
   @extends SC.ObjectController
 */
 Sites.siteController = SC.ObjectController.create(
-/** @scope Sites.siteController.prototype */ {
+/** @scope Sites.siteController.prototype */
+{
 
   contentBinding: 'Sites.sitesController.selection'
-	
+
 });

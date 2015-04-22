@@ -1,12 +1,12 @@
 Sites.statechart = SC.Statechart.create({
-	
-	trace: YES,
-	
+
+  trace: YES,
+
   initialState: 'generalState',
-	
-	// selectionState: SC.State.plugin('Sites.SelectionState'),
-	generalState: SC.State.plugin('Sites.GeneralState'),
-	haulingState: SC.State.plugin('Sites.HaulingState'),
-	weatherState: SC.State.plugin('Sites.WeatherState')
-	
+
+  // selectionState: SC.State.plugin('Sites.SelectionState'),
+  generalState: SC.State.plugin('Sites.GeneralState'),
+  haulingState: SC.State.plugin('Sites.HaulingState'),
+  weatherState: SC.State.plugin('Sites.WeatherState')
+
 });

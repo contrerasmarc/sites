@@ -11,7 +11,8 @@
   @extends SC.Object
 */
 Sites = SC.Application.create(
-  /** @scope Sites.prototype */ {
+/** @scope Sites.prototype */
+{
 
   NAMESPACE: 'Sites',
   VERSION: '0.1.0',
@@ -21,48 +22,43 @@ Sites = SC.Application.create(
   // connect to a backend server.  The default setup below connects the store
   // to any fixtures you define.
   // store: SC.Store.create().from(SC.Record.fixtures)
-
-	// store: SC.Store.create().from(SC.FixturesDataSource.create({
-	// 	simulateRemoteResponse: YES,
-	// 	latency: 250
-	// }))
-		
+  // store: SC.Store.create().from(SC.FixturesDataSource.create({
+  // 	simulateRemoteResponse: YES,
+  // 	latency: 250
+  // }))
   store: SC.Store.create({
-  		commitRecordsAutomatically: YES
+    commitRecordsAutomatically: YES
   }).from("Sites.SiteDataSource"),
 
-	
-// ..........................................................
-// Layouts for "columns" in Views (childViewLayout: SC.View.VERTICAL_STACK)
-// 
-	
-	LAYOUT_VERTICAL: {
-	  paddingBefore: 12,
-	  paddingAfter: 4,
-	  spacing: 4,
-		bottom: 0
-	},	
-	LAYOUT_CBX: {
-	  left: 12,
-	  height: 24,
-	  width: 184
-	},
-	LAYOUT_LBL: { 
-		left: 8, 
-		right:8,
-		height: 12
-	},
-	LAYOUT_TXT: {
-		left: 12, 
-		height: 24, 
-		width :200 
-	},
-	LAYOUT_COL: {
-		left: 0, 
-		right:0, 
-		top: 20, 
-		bottom: 0
-	}
+  // ..........................................................
+  // Layouts for "columns" in Views (childViewLayout: SC.View.VERTICAL_STACK)
+  // 
+  LAYOUT_VERTICAL: {
+    paddingBefore: 12,
+    paddingAfter: 4,
+    spacing: 4,
+    bottom: 0
+  },
+  LAYOUT_CBX: {
+    left: 12,
+    height: 24,
+    width: 184
+  },
+  LAYOUT_LBL: {
+    left: 8,
+    right: 8,
+    height: 12
+  },
+  LAYOUT_TXT: {
+    left: 12,
+    height: 24,
+    width: 200
+  },
+  LAYOUT_COL: {
+    left: 0,
+    right: 0,
+    top: 20,
+    bottom: 0
+  }
 
-	
 });

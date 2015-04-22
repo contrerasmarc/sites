@@ -11,8 +11,8 @@
   @extends SC.View
 */
 Sites.GeneralProductivityView = SC.View.extend(
-/** @scope Sites.GeneralProductivityView.prototype */ {
+/** @scope Sites.GeneralProductivityView.prototype */
+{
 
   // TODO: Add your own code here.
-
 });
