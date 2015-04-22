@@ -28,7 +28,7 @@ Sites.visitsController = SC.ArrayController.create(
 			}
     });
     // Assuming the content will always be a recordArray
-		//     if (Sites.myListViewController.get('content')) {
+		//     if (Sites.myListViewController.get('content')) 
 		// 	Sites.myListViewController.get('content').destroy();
 		// }
 		//     Sites.myListViewController.set('content', Sites.store.find(newQ));
