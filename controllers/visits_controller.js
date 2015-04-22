@@ -11,38 +11,38 @@
   @extends SC.ArrayController
 */
 Sites.visitsController = SC.ArrayController.create(
-	SC.CollectionViewDelegate,
+SC.CollectionViewDelegate,
 // Sites.visitsController = SC.Controller.create(
-/** @scope Sites.visitsController.prototype */ {
-	content: null,
-	
-	siteIdBinding: 'Sites.siteController._id',
-	
-  siteIdDidChange: function () {
-		console.log('siteIdDidChange', this.siteId);
+/** @scope Sites.visitsController.prototype */
+{
+  content: null,
+
+  siteIdBinding: 'Sites.siteController._id',
+
+  siteIdDidChange: function() {
+    console.log('siteIdDidChange', this.siteId);
     var siteId = this.get('siteId');
     var newQ = SC.Query.local(Sites.VisitModel, {
       conditions: "site_id = {qSite} AND type = 'visit' ",
-      parameters: { 
-				qSite: siteId
-			}
+      parameters: {
+        qSite: siteId
+      }
     });
     // Assuming the content will always be a recordArray
-		//     if (Sites.myListViewController.get('content')) 
-		// 	Sites.myListViewController.get('content').destroy();
-		// }
-		//     Sites.myListViewController.set('content', Sites.store.find(newQ));
-		//
-		
-		var c = this.get('content');
-		if (c) c.destroy();
-		this.set('content', Sites.store.find(newQ));
-		console.log("c=", Sites.store.find(newQ));
-		
+    //     if (Sites.myListViewController.get('content')) 
+    // 	Sites.myListViewController.get('content').destroy();
+    // }
+    //     Sites.myListViewController.set('content', Sites.store.find(newQ));
+    //
+    var c = this.get('content');
+    if (c) c.destroy();
+    this.set('content', Sites.store.find(newQ));
+    console.log("c=", Sites.store.find(newQ));
+
   }.observes('siteId'),
-	
-	
-	allowsMultipleSelection: NO
+
+  allowsMultipleSelection: NO
+
 	
 	
 	// orderBy: 'name',
