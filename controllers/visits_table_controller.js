@@ -10,7 +10,8 @@
 
   @extends SC.ArrayController
 */
-Sites.visitsTableController = SC.ArrayController.create( SCTable.TableDelegate, 
+Sites.visitsTableController = SC.ArrayController.create(  
+// Sites.visitsTableController = SC.ArrayController.create( SCTable.TableDelegate,
 /** @scope Sites.visitsTableController.prototype */ {
 
   // PUBLIC METHODS

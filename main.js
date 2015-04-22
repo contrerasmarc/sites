@@ -37,16 +37,15 @@ Sites.main = function main() {
 	
 	// var sites = Sites.store.find(Sites.SiteData);
 
-
 	var query = Sites.SITES_QUERY;
 	var sites = Sites.store.find(query);
 	// Controller get the data
 	Sites.sitesController.set('content', sites);
 
-	var queryVisits = Sites.VISITS_QUERY;
-	var visits = Sites.store.find(queryVisits);
-	// Controller get the data
-	Sites.visitsController.set('content', visits);
+	// var queryVisits = Sites.VISITS_QUERY;
+	// var visits = Sites.store.find(queryVisits);
+	// // Controller get the data
+	// Sites.visitsController.set('content', visits);
 	
 	
 	// var queryVisits = Sites.VISITS_QUERY;

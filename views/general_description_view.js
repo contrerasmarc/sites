@@ -504,7 +504,9 @@ Sites.GeneralDescriptionView = SC.SplitView.extend({
 			txtVisits: SC.TextFieldView.design({
 				layout: Sites.LAYOUT_TXT,
 				// valueBinding: 'Sites.visitsController.nvisits', // OK
-				valueBinding: 'Sites.siteController.visits.name', // OK
+				// valueBinding: 'Sites.siteController.visits.name', // OK
+				// valueBinding: 'Sites.siteController._id', // OK
+				valueBinding: 'Sites.visitsController.content',
 				// MCM
 				txtVisitsHasChanged: function() {
 					// var obj = this.value._sc_prevStoreIds;
@@ -519,8 +521,9 @@ Sites.GeneralDescriptionView = SC.SplitView.extend({
 					// console.log(Sites.siteController.get('_id'));
 					// Controller get the data
 					var obj = Sites.siteController.get('visits');
-					console.log('visitas=', obj, Sites.siteController.get('visits'), Sites.siteController.visits );
-					
+					// console.log('visitas=', obj, Sites.siteController.get('visits'), Sites.siteController.visits );
+					console.log('visitas=', Sites.visitsController.content );
+
 				}.observes('value')
 				
 				
@@ -533,7 +536,7 @@ Sites.GeneralDescriptionView = SC.SplitView.extend({
 				contentView: SC.ListView.extend({
 		      contentBinding: 'Sites.visitsController.arrangedObjects',
 		      selectionBinding: 'Sites.visitsController.selection',
-		      contentValueKey: 'site_id',
+		      contentValueKey: 'name',
 									
 		      rowHeight: 21
 	

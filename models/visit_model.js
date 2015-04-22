@@ -17,7 +17,8 @@ Sites.VisitModel = SC.Record.extend(
 	primaryKey: "_id",
 	type: SC.Record.attr(String, {defaultValue: 'visit'} ),
 	name: SC.Record.attr(String),
-	date: SC.Record.attr(SC.DateTime, { format: 'dd-mm-YY'}),
+	// date: SC.Record.attr(SC.DateTime, { format: 'dd-mm-YY'}),
+	date: SC.Record.attr(String),
 	days: SC.Record.attr(Number),
 	site: SC.Record.toOne('Sites.SiteModel', {
 		inverse: 'visits',

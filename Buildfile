@@ -15,7 +15,8 @@
 # config :sites, :required => [ :sproutcore, :sctable, 'sproutcore-table' ]
 
 config :sites,
-	:required => [ :sproutcore, :sctable ],
+	# :required => [ :sproutcore, :sctable ],
+	:required => [ :sproutcore ],
 	:css_theme => 'acier_theme.sites'
 
 # config :sites,
