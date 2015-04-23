@@ -124,9 +124,13 @@ Sites.GeneralDescriptionView = SC.SplitView.extend({
           value: 'other'
         }],
         countryHasChanged: function() {
-          console.log("countryHasChanged", this.value);
+          // console.log("countryHasChanged", this.value);
           if (this.value === "other") {
-            Sites.paneCountriesController.openPane();
+            // Sites.paneCountriesController.openPane();
+            // this.doModif();
+            // Sites.statechart.gotoState('MODIFCBX');
+            Sites.statechart.sendAction('doModif');
+            // Sites.statechart.doModif();
           }
         }.observes('this.value')
       }),
@@ -419,7 +423,7 @@ Sites.GeneralDescriptionView = SC.SplitView.extend({
       layout: Sites.LAYOUT_COL,
       childViewLayout: SC.View.VERTICAL_STACK,
       childViewLayoutOptions: Sites.LAYOUT_VERTICAL,
-      childViews: ['lblRCS', 'txtRCS', 'lblCES', 'txtCES', 'lblFVisits', 'cbxFVisits', 'lblVisits', 'tblVisits', 'txtVisits', 'lstVisits'],
+      childViews: ['lblRCS', 'txtRCS', 'lblCES', 'txtCES', 'lblFVisits', 'cbxFVisits', 'lblVisits', 'txtVisits', 'lstVisits'],
 
       // === RCS NAME ===
       lblRCS: SC.LabelView.extend({
@@ -521,9 +525,18 @@ Sites.GeneralDescriptionView = SC.SplitView.extend({
           // var visits = Sites.store.find(queryVisits);
           // console.log(Sites.siteController.get('_id'));
           // Controller get the data
-          var obj = Sites.siteController.get('visits');
+          // var obj = Sites.siteController.get('visits');
           // console.log('visitas=', obj, Sites.siteController.get('visits'), Sites.siteController.visits );
-          console.log('visitas=', Sites.visitsController.content);
+          // console.log('visitas=', Sites.visitsController.content);
+          var q = Sites.SITES_QUERY;
+          var s = Sites.store.find(q);
+          var id, sKey, sTatus;
+          s.forEach(function(item, index, self) {
+            id = item.get('id');
+            sKey = item.get('storeKey');
+            sTatus = item.get('status');
+            console.log('The sites: ',item,id,sKey,sTatus);
+          });
 
         }.observes('value')
 
@@ -542,7 +555,9 @@ Sites.GeneralDescriptionView = SC.SplitView.extend({
           selectionBinding: 'Sites.visitsController.selection',
           contentValueKey: 'name',
 
-          rowHeight: 21
+          rowHeight: 21,
+          
+          allowsMultipleSelection: NO
 
         })
       })

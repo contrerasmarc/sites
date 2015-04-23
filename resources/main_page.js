@@ -107,6 +107,7 @@ Sites.mainPage = SC.Page.design({
               // enabledBinding: SC.Binding.oneWay('Sites.explorerController.sectionIsEnabled')
             })],
             valueBinding: 'Sites.explorerController.nowShowing'
+            // valueBinding: 'Sites.MAINSTATE.nowShowing'
           }),
 
           txtSearch: SC.TextFieldView.extend({
@@ -142,8 +143,8 @@ Sites.mainPage = SC.Page.design({
 
               // MCM
               selectionHasChanged: function() {
-                console.log('OJO: selectionHasChanged');
-                console.log(this.get('selection').getEach('name'));
+                // console.log('OJO: selectionHasChanged');
+                // console.log(this.get('selection').getEach('name'));
 
               }.observes('selection')
 

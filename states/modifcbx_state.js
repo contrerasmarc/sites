@@ -1,20 +1,20 @@
 // ==========================================================================
-// Project:   Sites.paneCountriesController
+// Project:   Sites
 // Copyright: @2015 My Company, Inc.
 // ==========================================================================
 /*globals Sites */
 
 /** @class
 
-  (Document Your Controller Here)
+  (Document Your State Here)
 
-  @extends SC.ObjectController
+  @extends SC.State
+  @version 0.1
 */
-Sites.paneCountriesController = SC.ObjectController.create(
-/** @scope Sites.paneCountriesController.prototype */
-{
+Sites.MODIFCBX = SC.State.extend(
+/** @scope Sites.Modifcbx.prototype */ {
 
-  openPane: function(view) {
+  enterState: function(view) {
     var pane = SC.PanelPane.create({
       layout: {
         width: 300,
@@ -78,13 +78,11 @@ Sites.paneCountriesController = SC.ObjectController.create(
           },
           themeName: 'capsule',
           title: 'OK',
+
           action: function() {
             console.log('close!');
             pane.remove();
-            //this.set('previewIsEnabled', true);
-            // Tkph.analysisExplorerController.set('resultIsEnabled', true);
-            // Tkph.analysisExplorerController.set('nowShowing', 'Tkph.AnalysisResultView');
-            // Tkph.analysisExplorerController.set('nowShowingResult', 'Tkph.AnalysisSummaryView');
+            Sites.statechart.gotoState('MAINSTATE');
           }
         }),
         btnCancel: SC.ButtonView.design({
@@ -99,14 +97,18 @@ Sites.paneCountriesController = SC.ObjectController.create(
           action: function() {
             console.log('close!');
             Sites.siteController.set('country', '');
-            // console.log(Sites.siteController.get('country',''));
             pane.remove();
-
+            Sites.statechart.gotoState('MAINSTATE');
           }
         })
       })
     });
     pane.append();
+  },
+
+
+  exitState: function() {
+
   }
 
 });

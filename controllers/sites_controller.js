@@ -10,20 +10,16 @@
 
   @extends SC.ObjectController
 */
-Sites.sitesController = SC.ArrayController.create(
-SC.CollectionViewDelegate,
+Sites.sitesController = SC.ArrayController.create( SC.CollectionViewDelegate,
 /** @scope Sites.sitesController.prototype */
 {
-
-  // orderBy: 'name',
-  allowsMultipleSelection: NO,
 
   selectionBinding: SC.Binding.oneWay('Sites.searchSitesController.selection'),
   search: null,
 
-  searchHasChanged: function() {
-    console.log("searchHasChanged in Sites.sitesController");
-  }.observes('search'),
+  // searchHasChanged: function() {
+  //   console.log("searchHasChanged in Sites.sitesController");
+  // }.observes('search'),
 
   summary: function() {
     var len = this.get('length'),
@@ -85,6 +81,7 @@ SC.CollectionViewDelegate,
   },
 
   destroyOnRemoval: YES,
+
   removeSite: function() {
     var site = Sites.sitesController.get('selection').getEach('name');
     var sitename = site.objectAt(0);

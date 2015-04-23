@@ -96,7 +96,6 @@ Sites.SiteDataSource = SC.DataSource.extend(
   //   return NO; // return YES if you handled the query
   // },
   fetch: function(store, query) {
-    console.log('store:', store, 'query', query);
     if (query) {
       SC.Request.getUrl(this.getServerView('allData')).json().header('Accept', 'application/json').notify(this, 'didFetchSites', store, query).send();
       return YES;
@@ -107,11 +106,8 @@ Sites.SiteDataSource = SC.DataSource.extend(
   didFetchSites: function(response, store, query) {
     if (SC.ok(response)) {
       var body = response.get('encodedBody');
-      // console.log("body=", body);
       var couchResponse = SC.json.decode(body);
-      // console.log("couchReponse=", couchResponse );
       var records = couchResponse.rows.getEach('value');
-      console.log("the records=", records);
       store.loadRecords(Sites.SiteModel, records);
       store.dataSourceDidFetchQuery(query);
     }

@@ -1,12 +1,22 @@
+// ==========================================================================
+// Project:   Sites
+// Copyright: @2015 My Company, Inc.
+// ==========================================================================
+/*globals Sites */
+
+
 Sites.statechart = SC.Statechart.create({
 
   trace: YES,
-
-  initialState: 'generalState',
-
-  // selectionState: SC.State.plugin('Sites.SelectionState'),
-  generalState: SC.State.plugin('Sites.GeneralState'),
-  haulingState: SC.State.plugin('Sites.HaulingState'),
-  weatherState: SC.State.plugin('Sites.WeatherState')
+  
+  rootState: SC.State.design({
+ 
+    substatesAreConcurrent: true,
+ 
+    AUTHSTATE: SC.State.plugin('Sites.AUTHSTATE'),
+ 
+    MAINSTATE: SC.State.plugin('Sites.MAINSTATE')
+ 
+  })
 
 });

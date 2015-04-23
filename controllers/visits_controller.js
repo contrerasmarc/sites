@@ -10,38 +10,40 @@
 
   @extends SC.ArrayController
 */
-Sites.visitsController = SC.ArrayController.create(
-SC.CollectionViewDelegate,
-// Sites.visitsController = SC.Controller.create(
+Sites.visitsController = SC.ArrayController.create( 
 /** @scope Sites.visitsController.prototype */
 {
   content: null,
 
-  siteIdBinding: 'Sites.siteController._id',
+  siteIdBinding: 'Sites.siteController.id',
 
   siteIdDidChange: function() {
-    console.log('siteIdDidChange', this.siteId);
+    console.log('siteIdDidChange !!');
     var siteId = this.get('siteId');
+    
     var newQ = SC.Query.local(Sites.VisitModel, {
       conditions: "site_id = {qSite} AND type = 'visit' ",
+      // conditions: "type = 'visit' ",
       parameters: {
         qSite: siteId
       }
     });
-    // Assuming the content will always be a recordArray
-    //     if (Sites.myListViewController.get('content')) 
-    // 	Sites.myListViewController.get('content').destroy();
-    // }
-    //     Sites.myListViewController.set('content', Sites.store.find(newQ));
-    //
-    var c = this.get('content');
+
+    var c = Sites.visitsController.get('content');
     if (c) c.destroy();
-    this.set('content', Sites.store.find(newQ));
-    console.log("c=", Sites.store.find(newQ));
+    var s = Sites.store.find(newQ);
+    Sites.visitsController.set('content', s);
 
-  }.observes('siteId'),
+    var id, sKey, sTatus;
+    s.forEach(function(item, index, self) {
+      id = item.get('id');
+      sKey = item.get('storeKey');
+      sTatus = item.get('status');
+      console.log('visits',item,id,sKey,sTatus);
+    });
+    
 
-  allowsMultipleSelection: NO
+  }.observes('siteId')
 
   // orderBy: 'name',
 
