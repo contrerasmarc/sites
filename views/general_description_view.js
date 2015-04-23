@@ -508,35 +508,18 @@ Sites.GeneralDescriptionView = SC.SplitView.extend({
       // }),
       txtVisits: SC.TextFieldView.design({
         layout: Sites.LAYOUT_TXT,
-        // valueBinding: 'Sites.visitsController.nvisits', // OK
-        // valueBinding: 'Sites.siteController.visits.name', // OK
-        // valueBinding: 'Sites.siteController._id', // OK
         valueBinding: 'Sites.visitsController.content',
         // MCM
         txtVisitsHasChanged: function() {
-          // var obj = this.value._sc_prevStoreIds;
-          // console.log(obj);
-          // if (obj){
-          // 	obj.forEach(function(item){
-          // 		console.log(item);
-          // 	});
-          // }
-          // var queryVisits = Sites.VISITS_QUERY;
-          // var visits = Sites.store.find(queryVisits);
-          // console.log(Sites.siteController.get('_id'));
-          // Controller get the data
-          // var obj = Sites.siteController.get('visits');
-          // console.log('visitas=', obj, Sites.siteController.get('visits'), Sites.siteController.visits );
-          // console.log('visitas=', Sites.visitsController.content);
-          var q = Sites.SITES_QUERY;
-          var s = Sites.store.find(q);
-          var id, sKey, sTatus;
-          s.forEach(function(item, index, self) {
-            id = item.get('id');
-            sKey = item.get('storeKey');
-            sTatus = item.get('status');
-            console.log('The sites: ',item,id,sKey,sTatus);
-          });
+          // var q = Sites.SITES_QUERY;
+          // var s = Sites.store.find(q);
+          // var id, sKey, sTatus;
+          // s.forEach(function(item, index, self) {
+          //   id = item.get('id');
+          //   sKey = item.get('storeKey');
+          //   sTatus = item.get('status');
+          //   console.log('The sites: ',item,id,sKey,sTatus);
+          // });
 
         }.observes('value')
 

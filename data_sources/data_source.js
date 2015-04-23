@@ -96,8 +96,11 @@ Sites.SiteDataSource = SC.DataSource.extend(
   //   return NO; // return YES if you handled the query
   // },
   fetch: function(store, query) {
-    if (query) {
+    if (query == Sites.SITES_QUERY) {
       SC.Request.getUrl(this.getServerView('allData')).json().header('Accept', 'application/json').notify(this, 'didFetchSites', store, query).send();
+      return YES;
+    } else if (query) {
+      SC.Request.getUrl(this.getServerView('allData')).json().header('Accept', 'application/json').notify(this, 'didFetchVisits', store, query).send();
       return YES;
     }
     return NO; // return YES if you handled the query
@@ -116,20 +119,18 @@ Sites.SiteDataSource = SC.DataSource.extend(
     }
   },
 
-  // didFetchVisits: function(response, store, query) {
-  //   if (SC.ok(response)) {
-  //     var body = response.get('encodedBody');
-  // 			console.log("body=", body);
-  //     var couchResponse = SC.json.decode(body);
-  //     var records = couchResponse.rows.getEach('value');
-  // 			console.log("visits records=", records);
-  //     store.loadRecords(Sites.VisitModel, records);
-  //     store.dataSourceDidFetchQuery(query);
-  //   }
-  // 		else {
-  //     store.dataSourceDidErrorQuery(query, response);
-  //   }
-  // },
+  didFetchVisits: function(response, store, query) {
+    if (SC.ok(response)) {
+      var body = response.get('encodedBody');
+      var couchResponse = SC.json.decode(body);
+      var records = couchResponse.rows.getEach('value');
+      store.loadRecords(Sites.VisitModel, records);
+      store.dataSourceDidFetchQuery(query);
+    }
+      else {
+      store.dataSourceDidErrorQuery(query, response);
+    }
+  },
 
   // ..........................................................
   // RECORD SUPPORT

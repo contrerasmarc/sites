@@ -10,6 +10,11 @@
 
   @extends SC.ArrayController
 */
+
+sc_require('models/site_model');
+sc_require('models/visit_model');
+
+
 Sites.visitsController = SC.ArrayController.create( 
 /** @scope Sites.visitsController.prototype */
 {
@@ -18,9 +23,21 @@ Sites.visitsController = SC.ArrayController.create(
   siteIdBinding: 'Sites.siteController.id',
 
   siteIdDidChange: function() {
-    console.log('siteIdDidChange !!');
-    var siteId = this.get('siteId');
     
+    var siteId = this.get('siteId');
+    console.log('siteIdDidChange !!', siteId);
+    
+    var q = Sites.SITES_QUERY;
+    var s = Sites.store.find(q);
+    var id, sKey, sTatus;
+    s.forEach(function(item, index, self) {
+      id = item.get('id');
+      sKey = item.get('storeKey');
+      sTatus = item.get('status');
+      console.log('The sites: ',item,id,sKey,sTatus);
+    });
+          
+   
     var newQ = SC.Query.local(Sites.VisitModel, {
       conditions: "site_id = {qSite} AND type = 'visit' ",
       // conditions: "type = 'visit' ",
@@ -31,15 +48,16 @@ Sites.visitsController = SC.ArrayController.create(
 
     var c = Sites.visitsController.get('content');
     if (c) c.destroy();
-    var s = Sites.store.find(newQ);
+    // var s = Sites.store.find(newQ);
+    s = Sites.store.find(Sites.VisitModel);
+    console.log('The visits: ', s, s.get('length'));
     Sites.visitsController.set('content', s);
-
-    var id, sKey, sTatus;
+    
     s.forEach(function(item, index, self) {
       id = item.get('id');
       sKey = item.get('storeKey');
       sTatus = item.get('status');
-      console.log('visits',item,id,sKey,sTatus);
+      console.log('The visits: ',siteId, item,id,sKey,sTatus);
     });
     
 

@@ -12,7 +12,6 @@ Sites.mainPage = SC.Page.design({
 
     workspaceView: SC.WorkspaceView.design({
       autoResizeToolbars: true,
-      // classNames: ['my-workspace-view'],
       layout: {
         left: 0,
         right: 0,
@@ -24,7 +23,7 @@ Sites.mainPage = SC.Page.design({
       // Top Toolbar
       // 
       topToolbar: SC.ToolbarView.extend({
-        childViews: ['title'],
+        childViews: ['title', 'btnAux'],
         layout: {
           height: 44
         },
@@ -38,6 +37,53 @@ Sites.mainPage = SC.Page.design({
             centerY: 0
           },
           value: 'Sites'
+        }),
+        btnAux: SC.ButtonView.design({
+          layout: {
+            width: 220,
+            height: 24,
+            right: 8,
+            centerY: 0
+          },
+          title: 'Nuevo',
+          siteIdBinding: 'Sites.siteController.id',
+          action: function(){
+            var siteId = this.get('siteId');  
+            console.log(siteId);
+            var site = Sites.store.find(Sites.SiteModel, siteId);
+            console.log(site);
+            // site = Sites.store.createRecord(Sites.SiteModel, {
+            //   "type": "site",
+            //   "name": "new site",
+            //   "zone": null,
+            //   "country": null,
+            //   "reference": null,
+            //   "town": null,
+            //   "altitude": 0,
+            //   "activity": null,
+            //   "material": null,
+            //   "method": null,
+            //   "production": null,
+            //   "rcs": null,
+            //   "ces": null,
+            //   "fvisits": null
+            // });
+            var visit;
+            visit = Sites.store.createRecord(Sites.VisitModel, {
+              "type": "visit",
+              "name": "visit1",
+              "date": null,
+              "days": 0
+            });
+            site.get('visits').pushObject(visit);
+            visit = Sites.store.createRecord(Sites.VisitModel, {
+              "type": "visit",
+              "name": "visit2",
+              "date": null,
+              "days": 0
+            });            
+            site.get('visits').pushObject(visit);
+          }
         })
       }),
 
