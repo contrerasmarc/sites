@@ -23,9 +23,10 @@ Sites.VisitModel = SC.Record.extend(
   // date: SC.Record.attr(SC.DateTime, { format: 'dd-mm-YY'}),
   date: SC.Record.attr(String),
   days: SC.Record.attr(Number),
-  site: SC.Record.toOne('Sites.SiteModel', {
-    inverse: 'visits',
-    isMaster: NO
-  })
+  // site: SC.Record.toOne('Sites.SiteModel', {
+  //   inverse: 'visits',
+  //   isMaster: NO
+  // })
+  site: SC.Record.attr(String)
 
 });

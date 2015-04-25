@@ -14,7 +14,8 @@ Sites.sitesController = SC.ArrayController.create( SC.CollectionViewDelegate,
 /** @scope Sites.sitesController.prototype */
 {
 
-  selectionBinding: SC.Binding.oneWay('Sites.searchSitesController.selection'),
+  // selectionBinding: SC.Binding.oneWay('Sites.searchSitesController.selection'),
+  // selectionBinding: 'Sites.searchSitesController.selection',
   search: null,
 
   // searchHasChanged: function() {

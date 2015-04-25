@@ -60,15 +60,13 @@ Sites.SiteDataSource = SC.DataSource.extend(
   _dbpath: 'sites',
 
   getServerPath: function(resourceName) {
-    var path = '/' + this._dbpath + "//" + resourceName; //Estará bien el "//"? Si, está ok 24-feb-2015
-    // console.log('ServerPath=', path);
+    var path = '/' + this._dbpath + "//" + resourceName;
     return path;
 
   },
 
   getServerView: function(viewName) {
     var path = '/' + this._dbpath + "/_design/sites_app/_view/" + viewName;
-    // console.log('ServerView=', path);
     return path;
 
   },
@@ -97,16 +95,23 @@ Sites.SiteDataSource = SC.DataSource.extend(
   // },
   fetch: function(store, query) {
     if (query == Sites.SITES_QUERY) {
+      console.log('Query: Sites.SITES_QUERY');
       SC.Request.getUrl(this.getServerView('allData')).json().header('Accept', 'application/json').notify(this, 'didFetchSites', store, query).send();
       return YES;
+
     } else if (query) {
+      // console.log('Query: ', query);
       SC.Request.getUrl(this.getServerView('allData')).json().header('Accept', 'application/json').notify(this, 'didFetchVisits', store, query).send();
       return YES;
-    }
-    return NO; // return YES if you handled the query
-  },
 
+    }
+    // return NO; // return YES if you handled the query
+  },
+  
+  model: null,
+  
   didFetchSites: function(response, store, query) {
+    console.log('didFetchSites');
     if (SC.ok(response)) {
       var body = response.get('encodedBody');
       var couchResponse = SC.json.decode(body);
@@ -120,6 +125,7 @@ Sites.SiteDataSource = SC.DataSource.extend(
   },
 
   didFetchVisits: function(response, store, query) {
+    // console.log('didFetchVisits');
     if (SC.ok(response)) {
       var body = response.get('encodedBody');
       var couchResponse = SC.json.decode(body);

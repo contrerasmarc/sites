@@ -35,10 +35,10 @@ Sites.SiteModel = SC.Record.extend(
   ces: SC.Record.attr(String),
   fvisits: SC.Record.attr(Number, {
     defaulValue: 0
-  }),
-  visits: SC.Record.toMany('Sites.VisitModel', {
-    inverse: 'site',
-    isMaster: YES
   })
+  // visits: SC.Record.toMany('Sites.VisitModel', {
+  //   inverse: 'site',
+  //   isMaster: YES
+  // })
 
 });
