@@ -27,6 +27,16 @@ Sites.VisitModel = SC.Record.extend(
   //   inverse: 'visits',
   //   isMaster: NO
   // })
-  site: SC.Record.attr(String)
+  site: SC.Record.attr(String),
+    
+  fullVisit: function() {
+    var nom = this.get('name'),
+    date = this.get('date'),
+    days = this.get('days'),
+    v = nom + ' - ' + date + ' - ' + days + ' day(s)';
+    console.log(v);
+    return v;
+
+  }.property('name', 'date', 'days').cacheable()
 
 });

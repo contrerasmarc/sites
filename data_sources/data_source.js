@@ -10,42 +10,8 @@ Sites.SITES_QUERY = SC.Query.local(Sites.SiteModel, {
   destroyOnRemoval: YES,
 
   conditions: "type = 'site' "
+  
 });
-
-// var siteId = '8f902265a0a1c9c19cb73041b6007354';
-
-// Sites.VISITS_QUERY = SC.Query.local(Sites.VisitModel, {
-// 	// siteId: '8f902265a0a1c9c19cb73041b6007354',
-// 	siteIdBinding: SC.Binding.oneWay('Sites.siteController._id'),
-// 	isEditable: YES,
-// 	destroyOnRemoval: YES,
-//
-// 	// conditions: 'type = "visit" ' // OK
-// 	// conditions: 'site_id = "8f902265a0a1c9c19cb73041b6007354" AND type = "visit" ' // OK
-// 	conditions: "site_id = {qSite} AND type = 'visit' ", // OK
-// 	// conditions: function(){
-// 	// 	var dSite = this.get('siteId');
-// 	// 	console.log("site_id = " + dSite + " AND type = 'visit' ");
-// 	// 	return ("site_id = " + dSite + " AND type = 'visit' ");
-// 	// },
-// 	// conditions: "site_id = '8f902265a0a1c9c19cb73041b6007354' AND type = 'visit' ", // OK
-// 	// parameters: { qSite: '8f902265a0a1c9c19cb73041b6007354' } // OK
-// 	// parameters: { qSite: this.siteId },
-// 	parameters: {
-// 		// qSite: '8f902265a0a1c9c19cb73041b6007354'
-// 		qSite: this.siteId
-// 	},
-//
-// 	siteIdDidChange: function(){
-// 		console.log('siteIdHasChanged');
-// 		// console.log('Change de Site ID in VISITS_QUERY!', 'The Query:', this.conditions, 'Site ID', this.siteId, 'qSite', this.parameters);
-// 		// var queryVisits = Sites.VISITS_QUERY;
-// 		// var visits = Sites.store.find(queryVisits);
-// 		// // Controller get the data
-// 		// Sites.visitsController.set('content', visits);
-// 		this.parameters.set('qSite', this.siteId );
-// 	}.observes('siteId')
-// });
 
 /** @class
 
@@ -71,66 +37,76 @@ Sites.SiteDataSource = SC.DataSource.extend(
 
   },
 
+
   // ..........................................................
   // QUERY SUPPORT
   // 
-  // fetch: function(store, query) {
-  // 		console.log('store:', store, 'query', query);
-  //   if (query === Sites.SITES_QUERY) {
-  //     SC.Request.getUrl(this.getServerView('allSites'))
-  //     					.json()
-  //     					.header('Accept', 'application/json')
-  //     					.notify(this, 'didFetchSites', store, query)
-  //     					.send();
-  //     return YES;
-  //   } else if (query === Sites.VISITS_QUERY) {
-  // 			SC.Request.getUrl(this.getServerView('allVisits'))
-  // 					.json()
-  // 					.header('Accept', 'application/json')
-  // 					.notify(this, 'didFetchVisits', store, query)
-  // 					.send();
-  //   }
-  //
-  //   return NO; // return YES if you handled the query
-  // },
   fetch: function(store, query) {
-    if (query == Sites.SITES_QUERY) {
-      console.log('Query: Sites.SITES_QUERY');
-      SC.Request.getUrl(this.getServerView('allData')).json().header('Accept', 'application/json').notify(this, 'didFetchSites', store, query).send();
-      return YES;
-
-    } else if (query) {
-      // console.log('Query: ', query);
-      SC.Request.getUrl(this.getServerView('allData')).json().header('Accept', 'application/json').notify(this, 'didFetchVisits', store, query).send();
-      return YES;
-
+    console.log(store, query, query.recordType);
+    // var rType = query.recordType;
+    // // console.log('Query actuando', query.recordType);
+    // console.log('Query actuando', rType);
+    // // if (query.recordType == Sites.SiteModel) {
+    // if (rType == Sites.SiteModel) {
+    //   SC.Request.getUrl(this.getServerView('allSites')).json().header('Accept', 'application/json').notify(this, 'didFetchSites', store, query).send();
+    //   return YES;
+    //
+    // // } else if (query.recordType == Sites.VisitModel) {
+    // } else if (rType == Sites.VisitModel) {
+    //   SC.Request.getUrl(this.getServerView('allVisits')).json().header('Accept', 'application/json').notify(this, 'didFetchVisits', store, query).send();
+    //   return YES;
+    //
+    // }
+    // return YES;
+    
+    switch(query.recordType) {
+      case Sites.SiteModel: 
+        SC.Request.getUrl(this.getServerView('allSites')).json().header('Accept', 'application/json').notify(this, 'didFetch', store, query).send();
+        console.log('fetch: Sites.SiteModel ');
+        return YES;
+      case Sites.VisitModel: 
+        SC.Request.getUrl(this.getServerView('allVisits')).json().header('Accept', 'application/json').notify(this, 'didFetch', store, query).send();
+        return YES;
+      default:
+        return YES;
     }
-    // return NO; // return YES if you handled the query
+    
+    
   },
   
-  model: null,
   
-  didFetchSites: function(response, store, query) {
-    console.log('didFetchSites');
+  // didFetchSites: function(response, store, query) {
+  //   if (SC.ok(response)) {
+  //     var body = response.get('encodedBody');
+  //     var couchResponse = SC.json.decode(body);
+  //     var records = couchResponse.rows.getEach('value');
+  //     store.loadRecords(Sites.SiteModel, records);
+  //     store.dataSourceDidFetchQuery(query);
+  //   }
+  //   else {
+  //     store.dataSourceDidErrorQuery(query, response);
+  //   }
+  // },
+  //
+  // didFetchVisits: function(response, store, query) {
+  //   if (SC.ok(response)) {
+  //     var body = response.get('encodedBody');
+  //     var couchResponse = SC.json.decode(body);
+  //     var records = couchResponse.rows.getEach('value');
+  //     store.loadRecords(Sites.VisitModel, records);
+  //     store.dataSourceDidFetchQuery(query);
+  //   }
+  //     else {
+  //     store.dataSourceDidErrorQuery(query, response);
+  //   }
+  // },
+  
+  didFetch: function(response, store, query) {
     if (SC.ok(response)) {
       var body = response.get('encodedBody');
       var couchResponse = SC.json.decode(body);
       var records = couchResponse.rows.getEach('value');
-      store.loadRecords(Sites.SiteModel, records);
-      store.dataSourceDidFetchQuery(query);
-    }
-    else {
-      store.dataSourceDidErrorQuery(query, response);
-    }
-  },
-
-  didFetchVisits: function(response, store, query) {
-    // console.log('didFetchVisits');
-    if (SC.ok(response)) {
-      var body = response.get('encodedBody');
-      var couchResponse = SC.json.decode(body);
-      var records = couchResponse.rows.getEach('value');
-      store.loadRecords(Sites.VisitModel, records);
+      store.loadRecords(query.recordType, records);
       store.dataSourceDidFetchQuery(query);
     }
       else {

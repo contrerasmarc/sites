@@ -28,6 +28,9 @@ Sites.MAINSTATE = SC.State.extend(
     // 
     var query = Sites.SITES_QUERY;
     var sites = Sites.store.find(query);
+    
+    console.log('query:', query, 'sites:', sites);
+    
     // Controller get the data
     Sites.sitesController.set('content', sites);
   

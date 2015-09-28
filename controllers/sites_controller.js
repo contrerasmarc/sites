@@ -10,7 +10,7 @@
 
   @extends SC.ObjectController
 */
-Sites.sitesController = SC.ArrayController.create( SC.CollectionViewDelegate,
+Sites.sitesController = SC.ArrayController.create(SC.CollectionViewDelegate,
 /** @scope Sites.sitesController.prototype */
 {
 
@@ -21,7 +21,6 @@ Sites.sitesController = SC.ArrayController.create( SC.CollectionViewDelegate,
   // searchHasChanged: function() {
   //   console.log("searchHasChanged in Sites.sitesController");
   // }.observes('search'),
-
   summary: function() {
     var len = this.get('length'),
     ret;
@@ -121,5 +120,4 @@ Sites.sitesController = SC.ArrayController.create( SC.CollectionViewDelegate,
   //   return YES;
   //
   // }
-
 });

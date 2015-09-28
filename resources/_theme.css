@@ -15,4 +15,7 @@
   This allows you to give different directories different values for
   $theme if you wish.
 */
-$theme: '.acier-theme.sites';
+
+/*$theme: '.acier-theme.sites';*/
+
+$theme: '.aki.sites';

@@ -23,7 +23,7 @@ Sites.GeneralDescriptionView = SC.SplitView.extend({
   // ..........................................................
   // Basic
   //
-  leftView: SC.LabelView.design(SC.SplitChild, {
+  leftView: SC.View.design(SC.SplitChild, {
     minimumSize: 80,
     childViews: ['lblSite', 'colSite'],
 
@@ -227,7 +227,7 @@ Sites.GeneralDescriptionView = SC.SplitView.extend({
   // ..........................................................
   // Operation
   //	
-  middleView: SC.LabelView.design(SC.SplitChild, {
+  middleView: SC.View.design(SC.SplitChild, {
     minimumSize: 80,
     childViews: ['lblOperation', 'colOperation'],
 
@@ -408,7 +408,7 @@ Sites.GeneralDescriptionView = SC.SplitView.extend({
   // ..........................................................
   // Michelin
   //		
-  rightView: SC.LabelView.design(SC.SplitChild, {
+  rightView: SC.View.design(SC.SplitChild, {
     minimumSize: 80,
     childViews: ['lblMichelin', 'colMichelin'],
 
@@ -423,7 +423,7 @@ Sites.GeneralDescriptionView = SC.SplitView.extend({
       layout: Sites.LAYOUT_COL,
       childViewLayout: SC.View.VERTICAL_STACK,
       childViewLayoutOptions: Sites.LAYOUT_VERTICAL,
-      childViews: ['lblRCS', 'txtRCS', 'lblCES', 'txtCES', 'lblFVisits', 'cbxFVisits', 'lblVisits', 'txtVisits', 'lstVisits'],
+      childViews: ['lblRCS', 'txtRCS', 'lblCES', 'txtCES', 'lblFVisits', 'cbxFVisits', 'lblVisits', 'lstVisits'],
 
       // === RCS NAME ===
       lblRCS: SC.LabelView.extend({
@@ -506,24 +506,24 @@ Sites.GeneralDescriptionView = SC.SplitView.extend({
       //   columnsSelectionBinding: 'Sites.visitsTableColumnsController.selection'
       //
       // }),
-      txtVisits: SC.TextFieldView.design({
-        layout: Sites.LAYOUT_TXT,
-        valueBinding: 'Sites.visitsController.content',
-        // MCM
-        txtVisitsHasChanged: function() {
-          // var q = Sites.SITES_QUERY;
-          // var s = Sites.store.find(q);
-          // var id, sKey, sTatus;
-          // s.forEach(function(item, index, self) {
-          //   id = item.get('id');
-          //   sKey = item.get('storeKey');
-          //   sTatus = item.get('status');
-          //   console.log('The sites: ',item,id,sKey,sTatus);
-          // });
-
-        }.observes('value')
-
-      }),
+      // txtVisits: SC.TextFieldView.design({
+      //   layout: Sites.LAYOUT_TXT,
+      //   valueBinding: 'Sites.visitsController.content',
+      //   // MCM
+      //   txtVisitsHasChanged: function() {
+      //     // var q = Sites.SITES_QUERY;
+      //     // var s = Sites.store.find(q);
+      //     // var id, sKey, sTatus;
+      //     // s.forEach(function(item, index, self) {
+      //     //   id = item.get('id');
+      //     //   sKey = item.get('storeKey');
+      //     //   sTatus = item.get('status');
+      //     //   console.log('The sites: ',item,id,sKey,sTatus);
+      //     // });
+      //
+      //   }.observes('value')
+      //
+      // }),
 
       lstVisits: SC.ScrollView.extend({
         layout: {
@@ -536,8 +536,17 @@ Sites.GeneralDescriptionView = SC.SplitView.extend({
         contentView: SC.ListView.extend({
           contentBinding: 'Sites.visitsController.arrangedObjects',
           selectionBinding: 'Sites.visitsController.selection',
-          contentValueKey: 'name',
-
+          // contentValueKey: 'name',
+          contentValueKey: 'fullVisit',
+          // contentValueKey: function() {
+          //   var nom = this.get('name'),
+          //   date = this.get('date'),
+          //   days = this.get('days');
+          //
+          //   return nom + ' | ' + date + ' | Nb of Days: ' + days;
+          //
+          // }.property('name', 'date', 'days'),
+          
           rowHeight: 21,
           
           allowsMultipleSelection: NO

@@ -15,13 +15,25 @@
 //
 // NOTE: if you want to change the theme this one is based on, don't
 // forget to change the :css_theme property in your buildfile.
-Sites.Theme = SC.AcierTheme.create({
+// Sites.Theme = SC.AcierTheme.create({
+//   name: 'sites'
+// });
+//
+// // SproutCore needs to know that your app's theme exists
+// SC.Theme.addTheme(Sites.Theme);
+//
+// // Setting it as the default theme makes every pane SproutCore
+// // creates default to this theme unless otherwise specified.
+// SC.defaultTheme = 'sites';
+
+// AcierTools.Theme = SC.AkiTheme.create({
+//   name: 'acier-tools'
+// });
+// SC.Theme.addTheme(AcierTools.Theme);
+// SC.defaultTheme = 'acier-tools';
+
+Sites.Theme = SC.AkiTheme.create({
   name: 'sites'
 });
-
-// SproutCore needs to know that your app's theme exists
 SC.Theme.addTheme(Sites.Theme);
-
-// Setting it as the default theme makes every pane SproutCore
-// creates default to this theme unless otherwise specified.
 SC.defaultTheme = 'sites';

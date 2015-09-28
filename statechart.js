@@ -10,7 +10,7 @@ Sites.statechart = SC.Statechart.create({
   trace: YES,
   
   rootState: SC.State.design({
- 
+
     substatesAreConcurrent: true,
  
     AUTHSTATE: SC.State.plugin('Sites.AUTHSTATE'),

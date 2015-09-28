@@ -14,6 +14,20 @@
 // sc_require('models/site_model');
 // sc_require('models/visit_model');
 
+Sites.VISITS_QUERY = SC.Query.local(Sites.VisitModel, {
+
+  isEditable: YES,
+  destroyOnRemoval: YES,
+
+  conditions: "site = {qSite} AND type = 'visit' ",
+  // conditions: "type = 'visit' "
+  parameters: {
+    qSite: Sites.siteId
+  }
+  
+});
+
+
 
 Sites.visitsController = SC.ArrayController.create( 
 /** @scope Sites.visitsController.prototype */
@@ -21,14 +35,14 @@ Sites.visitsController = SC.ArrayController.create(
   content: null,
 
   siteIdBinding: 'Sites.siteController.id',
-
+  
   siteIdDidChange: function() {
     
     var siteId = this.get('siteId');
     // console.log('siteIdDidChange !!', siteId);
     
-    var q = Sites.SITES_QUERY;
-    var s = Sites.store.find(q);
+    // var q = Sites.SITES_QUERY;
+    // var s = Sites.store.find(q);
     // var id, sKey, sTatus;
     // s.forEach(function(item, index, self) {
     //   id = item.get('id');
@@ -36,7 +50,6 @@ Sites.visitsController = SC.ArrayController.create(
     //   sTatus = item.get('status');
     //   console.log('The sites: ',item,id,sKey,sTatus);
     // });
-          
    
     var newQ = SC.Query.local(Sites.VisitModel, {
       // conditions: "site_id = {qSite} ",
@@ -46,9 +59,12 @@ Sites.visitsController = SC.ArrayController.create(
         qSite: siteId
       }
     });
+    
+    // console.log(Sites.toString('siteId'), Sites.VISITS_QUERY, siteId, newQ );
 
     var c = this.get('content');
     if (c) c.destroy();
+    // s = Sites.store.find(Sites.VISITS_QUERY);
     s = Sites.store.find(newQ);
     // s = Sites.store.find(Sites.VisitModel);
     // console.log('The visits: ', s, s.get('length'));

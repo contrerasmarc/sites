@@ -16,4 +16,5 @@ Sites.visitController = SC.ObjectController.create(
 
   contentBinding: 'Sites.visitsController.selection'
 
+
 });
